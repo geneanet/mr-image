@@ -1,8 +1,9 @@
 {
-  "name": "mr-image",
-  "version": "0.0.2",
+  "name": "mr-image-extended",
+  "version": "0.0.3",
   "authors": [
-    "Maximiliano Ruani <maxi.ruani91@googlemail.com>"
+    "Maximiliano Ruani <maxi.ruani91@googlemail.com>",
+    "Adrien SAUNIER <contact.adriensaunier@gmail.com>"
   ],
   "description": "Simple image select, crop and draw Angular.js directive.",
   "main": [
@@ -20,7 +21,7 @@
     "selector"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/maxiruani/mr-image",
+  "homepage": "https://github.com/geneanet/mr-image",
   "ignore": [
     "node_modules",
     "bower_components",
