@@ -7,15 +7,19 @@ app.directive('mrImage', function() {
         scope: {
             src: '=mrSrc',
             maxWidth: '=?mrMaxWidth',
+            maxHeight: '=?mrMaxHeight',
             aspectRatio: '=?mrAspectRatio',
             scale: '=?mrScale',
             drawer: '=?mrDrawer',
             selector: '=?mrSelector'
         },
+
         template:
-            '<div mr-image-selector mr-model="selector" mr-aspect-ratio="aspectRatio" style="height: {{scaleValue(height, scale) + \'px\'}}; width: {{scaleValue(width, scale) + \'px\'}}"></div>' +
-            '<div mr-image-drawer mr-model="drawer" style="height: {{scaleValue(height, scale) + \'px\'}}; width: {{scaleValue(width, scale) + \'px\'}}"></div>' +
-            '<img ng-src="{{src}}" width="{{scaleValue(width, scale)}}" height="{{scaleValue(height, scale)}}">',
+            '<div class="mr-layer-wrapper">'+
+            '<div class="layer" mr-image-drawer mr-model="drawer"></div>'+
+            '<div class="layer" mr-image-selector mr-model="selector" mr-aspect-ratio="aspectRatio"></div>'+
+            '<img ng-src="{{src}}" width="{{scaleValue(width, scale)}}" height="{{scaleValue(height, scale)}}">'+
+            '</div>',
 
         link: function (scope, element) {
 
@@ -28,15 +32,23 @@ app.directive('mrImage', function() {
                         scope.height = scope.height || scope.image.height;
                         scope.width = scope.width || scope.image.width;
 
-                        if (angular.isUndefined(scope.scale) && angular.isDefined(scope.maxWidth)) {
-                            scope.scale = scope.maxWidth >= scope.width ? 1 : scope.maxWidth / scope.width;
-                        }
-                        else {
-                            scope.scale = scope.scale || 1;
-                        }
+                        if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxHeight)) {
 
-                        element.css('width', scope.scaleValue(scope.width, scope.scale) + 'px');
-                        element.css('height', scope.scaleValue(scope.height, scope.scale) + 'px');
+                            element.css('width', '100%');
+                            element.css('max-height', scope.maxHeight + 'px');
+
+                            scope.scale = scope.maxHeight / scope.height;
+
+                        } else {
+                            if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxWidth)) {
+                                scope.scale = scope.maxWidth >= scope.width ? 1 : scope.maxWidth / scope.width;
+                            }else {
+                                scope.scale = scope.scale || 1;
+                            }
+
+                            element.css('width', scope.scaleValue(scope.width, scope.scale) + 'px');
+                            element.css('height', scope.scaleValue(scope.height, scope.scale) + 'px');
+                        }
                     });
                 };
                 scope.image.src = src;
