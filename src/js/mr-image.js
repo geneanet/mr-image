@@ -6,6 +6,7 @@ app.directive('mrImage', function() {
         restrict: 'A',
         scope: {
             src: '=mrSrc',
+            optionDelete: '=?mrAllowDelete',
             maxWidth: '=?mrMaxWidth',
             maxHeight: '=?mrMaxHeight',
             aspectRatio: '=?mrAspectRatio',
@@ -16,8 +17,8 @@ app.directive('mrImage', function() {
 
         template:
             '<div class="mr-layer-wrapper">'+
-            '<div class="layer" mr-image-drawer mr-model="drawer"></div>'+
             '<div class="layer" mr-image-selector mr-model="selector" mr-aspect-ratio="aspectRatio"></div>'+
+            '<div class="layer" mr-image-drawer mr-model="drawer" mr-unit="unit" mr-allow-delete="optionDelete"></div>'+
             '<img ng-src="{{src}}" width="{{scaleValue(width, scale)}}" height="{{scaleValue(height, scale)}}">'+
             '</div>',
 
@@ -37,9 +38,11 @@ app.directive('mrImage', function() {
                             element.css('width', '100%');
                             element.css('max-height', scope.maxHeight + 'px');
 
+                            scope.unit = '%';
                             scope.scale = scope.maxHeight / scope.height;
 
                         } else {
+                            scope.unit = 'px';
                             if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxWidth)) {
                                 scope.scale = scope.maxWidth >= scope.width ? 1 : scope.maxWidth / scope.width;
                             }else {
