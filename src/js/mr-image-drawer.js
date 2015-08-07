@@ -27,6 +27,14 @@ app.directive('mrImageDrawer', function(){
         </div>',
         link: function(scope, element) {
 
+            scope.$on('mrImageDisplayArea', function(e, data) {
+                scope.displayArea = data;
+            });
+
+            scope.$on('mrImageHideArea', function(e, data) {
+                scope.displayArea = null;
+            });
+
             scope.displayInformations = function(areaID) {
                 scope.displayArea = areaID;
             }
@@ -47,6 +55,7 @@ app.directive('mrImageDrawer', function(){
             }
 
             scope.delete = function(index) {
+                scope.$emit('mrImageDeleteEvent', scope.rects[index]);
                 scope.rects.splice(index, 1);
             }
 
