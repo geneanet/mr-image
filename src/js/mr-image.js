@@ -35,7 +35,6 @@ app.directive('mrImage', function() {
 
                         if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxHeight)) {
 
-                            element.css('width', '100%');
                             element.css('max-height', scope.maxHeight + 'px');
 
                             scope.unit = '%';
