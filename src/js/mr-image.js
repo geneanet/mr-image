@@ -33,15 +33,13 @@ app.directive('mrImage', function() {
                         scope.height = scope.height || scope.image.height;
                         scope.width = scope.width || scope.image.width;
 
+                        scope.unit = '%';
                         if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxHeight)) {
 
                             element.css('max-height', scope.maxHeight + 'px');
-
-                            scope.unit = '%';
                             scope.scale = scope.maxHeight / scope.height;
 
                         } else {
-                            scope.unit = 'px';
                             if(angular.isUndefined(scope.scale) && angular.isDefined(scope.maxWidth)) {
                                 scope.scale = scope.maxWidth >= scope.width ? 1 : scope.maxWidth / scope.width;
                             }else {
