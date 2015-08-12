@@ -19,13 +19,26 @@ app.directive('mrImageDrawer', function(){
             "ng-mouseover=\"this.displayInformations(areaId)\""+
             "ng-mouseout=\"this.hideInformations(areaId)\""+
         '>
-            <div class="mr-face-delete" ng-show="this.selectedArea == areaId && optionDelete && displayOptions" ng-click="this.delete($index)"></div>
-            <div class="mr-face-extra" ng-show="this.displayArea == areaId || this.selectedArea == areaId">
+            <div class="mr-face-delete" ng-show="this.selectedArea == areaId && optionDelete && displayOptions" ng-click="this.delete($index)" ng-style="setDeleteAlignment(rect)"></div>
+            <div class="mr-face-extra" ng-show="this.displayArea == areaId || this.selectedArea == areaId" ng-style="setTitleAlignment(rect)">
                 <h2 ng-show=\"rect.title\">{{rect.title}}</h2>
                 <p ng-show=\"rect.caption\">{{rect.caption}}</p>
             </div>
         </div>',
         link: function(scope, element) {
+
+            scope.setDeleteAlignment = function(rect) {
+                if(rect.x2 > 95) {
+                    return { left: '-25px' };
+                }
+            }
+
+            scope.setTitleAlignment = function(rect) {
+                if(rect.y2 > 95) {
+                    return { top: '-35px' };
+                }
+            }
+
 
             scope.$on('mrImageDisplayArea', function(e, data) {
                 scope.displayArea = data;
