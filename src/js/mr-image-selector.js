@@ -128,6 +128,7 @@ app.directive('mrImageSelector', function(){
 
             function onDrawingDown(event) {
                 disableUserSelect();
+                scope.$emit('mrImageMouseDown');
                 // pageX and pageY are absolutes (relative to document), transform to relative to parent
                 var position = offset(element); // offset() absolutes coordinates relative to document
                 centerX = event.pageX - position.left;
@@ -148,6 +149,7 @@ app.directive('mrImageSelector', function(){
 
             function onDrawingUp(event) {
                 enableUserSelect();
+                scope.$emit('mrImageMouseUp');
                 if (click) {
                     scope.$apply(clear);
                 }
