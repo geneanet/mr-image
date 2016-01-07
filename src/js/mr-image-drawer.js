@@ -17,28 +17,26 @@ app.directive('mrImageDrawer', function(){
             "ng-click=\"this.toggleDisplayOptions(areaId)\""+
             "ng-class=\"{active: this.displayArea == areaId || this.selectedArea == areaId}\""+
             "ng-mouseover=\"this.displayInformations(areaId)\""+
-            "ng-mouseout=\"this.hideInformations(areaId)\""+
-        '>
-            <div class="mr-face-delete" ng-show="this.selectedArea == areaId && optionDelete && displayOptions" ng-click="this.delete($index)" ng-style="setDeleteAlignment(rect)"></div>
-            <div class="mr-face-extra" ng-show="this.displayArea == areaId || this.selectedArea == areaId" ng-style="setTitleAlignment(rect)">
-                <h2 ng-show=\"rect.title\">{{rect.title}}</h2>
-                <p ng-show=\"rect.caption\">{{rect.caption}}</p>
-            </div>
-        </div>',
+            "ng-mouseout=\"this.hideInformations(areaId)\">"+
+            "<div class=\"mr-face-delete\" ng-show=\"this.selectedArea == areaId && optionDelete && displayOptions\" ng-click=\"this.delete($index)\" ng-style=\"setDeleteAlignment(rect)\"></div>"+
+            "<div class=\"mr-face-extra\" ng-show=\"this.displayArea == areaId || this.selectedArea == areaId\" ng-style=\"setTitleAlignment(rect)\">"+
+                "<h2 ng-show=\"rect.title\">{{rect.title}}</h2>"+
+                "<p ng-show=\"rect.caption\">{{rect.caption}}</p>"+
+            "</div>"+
+        "</div>",
         link: function(scope, element) {
 
             scope.setDeleteAlignment = function(rect) {
                 if(rect.x2 > 95) {
                     return { left: '-25px' };
                 }
-            }
+            };
 
             scope.setTitleAlignment = function(rect) {
                 if(rect.y2 > 95) {
                     return { top: '-35px' };
                 }
-            }
-
+            };
 
             scope.$on('mrImageDisplayArea', function(e, data) {
                 scope.displayArea = data;
@@ -50,11 +48,11 @@ app.directive('mrImageDrawer', function(){
 
             scope.displayInformations = function(areaID) {
                 scope.displayArea = areaID;
-            }
+            };
 
             scope.hideInformations = function() {
                 scope.displayArea = null;
-            }
+            };
 
             scope.toggleDisplayOptions = function(areaID) {
 
@@ -65,13 +63,12 @@ app.directive('mrImageDrawer', function(){
                     scope.selectedArea   = null;
                     scope.displayOptions = false;
                 }
-            }
+            };
 
             scope.delete = function(index) {
                 scope.$emit('mrImageDeleteEvent', scope.rects[index]);
                 scope.rects.splice(index, 1);
-            }
-
+            };
         },
     };
 });
